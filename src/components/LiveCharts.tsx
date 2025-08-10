@@ -64,7 +64,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ data, images }) => {
 
       {images && images.length > 0 && (
         <section>
-          <h2 className="text-lg font-semibold">Gráficas generadas (backend)</h2>
+          <h2 className="text-lg font-semibold">Generated charts</h2>
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {images.slice(0, 2).map((src, i) => (
@@ -106,7 +106,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ data, images }) => {
       )}
 
       {!hasCharts && (
-        <p className="text-sm text-muted-foreground">No hay datos para graficar todavía.</p>
+        <p className="text-sm text-muted-foreground">There is no data to grap yet.</p>
       )}
     </div>
   );
