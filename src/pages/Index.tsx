@@ -79,7 +79,7 @@ const Index: React.FC = () => {
   const startRef = useRef<number | null>(null);
 
   useEffect(() => {
-    document.title = "Análisis biomecánico de canotaje | Paddle Wise Coach";
+    document.title = "AiSA";
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", "Procesa tu video y recibe análisis y feedback tipo coach en tiempo real.");
     const existing = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
@@ -109,7 +109,7 @@ const Index: React.FC = () => {
 
   const handleStartLive = async () => {
     if (!file) {
-      toast.error("Selecciona un video primero.");
+      toast.error("Please load a video first.");
       return;
     }
     setIsLoading(true);
@@ -217,12 +217,12 @@ const Index: React.FC = () => {
               break;
             case "complete":
               if (msg.processed_video_url) setProcessedUrl(absolutize(msg.processed_video_url));
-              toast.success("Procesamiento finalizado");
+              toast.success("Processing completed");
               setIsLoading(false);
               ws.close();
               break;
             case "error":
-              toast.error(msg.message || "Error en streaming");
+              toast.error(msg.message || "Streaming error");
               setIsLoading(false);
               ws.close();
               break;
@@ -238,7 +238,7 @@ const Index: React.FC = () => {
       };
     } catch (e: any) {
       console.error(e);
-      toast.error("No se pudo iniciar el procesamiento");
+      toast.error("Processing could not be started");
       setIsLoading(false);
     }
   };
@@ -292,27 +292,22 @@ const Index: React.FC = () => {
   }, [metrics]);
 
   return (
-    <div>
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-6 space-y-4">
-          <img
-            src="/placeholder.svg"
-            alt="Banner principal Paddle Wise Coach"
-            className="w-full h-40 md:h-56 object-cover rounded-md border"
-            loading="eager"
-          />
-          <div className="flex justify-center">
+    <div className="content-wrapper">
+      <header>
+        <div className="container mx-auto px-4 py-6 space-y-4 border-b">
+          
+          <div id="main_logo" className="flex justify-center mt-4">
             <img
-              src="/favicon.ico"
+              src="/assets/img/aisa_logo.jpg"
               alt="Logo Paddle Wise Coach"
-              className="h-16 w-16 object-contain"
+              className="object-contain object-center circle bg-white p-2"
               loading="lazy"
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Análisis biomecánico de canotaje</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Artificial Inteligence Sport Assistant</h1>
             <p className="text-muted-foreground mt-1">
-              Carga un video y visualiza resultados frame a frame, con textos del coach generados en tiempo real.
+              Upload a video and view frame-by-frame results, with coach texts generated in real time.
             </p>
           </div>
         </div>
@@ -321,38 +316,39 @@ const Index: React.FC = () => {
       <main className="container mx-auto px-4 py-6 space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Subir video</CardTitle>
+            <CardTitle>Upload video</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
-            <Input type="file" accept="video/*" onChange={onFileChange} />
             <div className="flex items-center gap-3">
-              <Button onClick={handleStartLive} disabled={!file || isLoading}>
-                {isLoading ? "Procesando..." : "Procesar video"}
+              <Input type="file" accept="video/*" onChange={onFileChange} />
+                            <Button onClick={handleStartLive} disabled={!file || isLoading}>
+                {isLoading ? "Loading..." : "Analyze video"}
               </Button>
-              {file && (
+              
+            </div>
+            {file && (
                 <span className="text-sm text-muted-foreground">
-                  Archivo: {file.name} ({Math.round(file.size / (1024 * 1024))} MB)
+                  File: {file.name} ({Math.round(file.size / (1024 * 1024))} MB)
                 </span>
               )}
-            </div>
 
           </CardContent>
         </Card>
 
          <Tabs defaultValue="procesamiento" className="w-full">
           <TabsList>
-            <TabsTrigger value="procesamiento">Procesamiento</TabsTrigger>
-            <TabsTrigger value="graficas">Gráficas</TabsTrigger>
+            <TabsTrigger value="procesamiento">Video processing</TabsTrigger>
+            <TabsTrigger value="graficas">Charts</TabsTrigger>
           </TabsList>
 
           <TabsContent value="procesamiento" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Procesamiento en tiempo real</CardTitle>
+                <CardTitle>Real-time processing</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                  <div>Estado: {isLoading ? "Procesando" : processedUrl ? "Completado" : "Listo"}</div>
+                  <div>Status: {isLoading ? "Processing" : processedUrl ? "Completed" : "Ready"}</div>
                   <div>Strokes: {liveStrokes} | SPM: {liveSPM}</div>
                 </div>
                 <div>
@@ -360,22 +356,22 @@ const Index: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h3 className="font-semibold mb-2">Frame actual</h3>
+                    <h3 className="font-semibold mb-2">Current frame</h3>
                     {liveFrame ? (
-                      <img src={liveFrame} alt="frame en vivo con analítica superpuesta" className="w-full rounded" />
+                      <img src={liveFrame} alt="live frame with overlay analytics" className="w-full rounded" />
                     ) : (
                       <p className="text-sm text-muted-foreground">
-                        {isLoading ? "Esperando frames..." : "Aún no hay frames. Pulsa 'Procesar video'."}
+                        {isLoading ? "Awaiting frames..." : "There are no frames yet. Please load a video and then click on 'Analyze video'."}
                       </p>
                     )}
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2">Notas del coach (incremental)</h3>
-                    <div className="h-64 overflow-auto border rounded p-3 text-sm space-y-2">
+                    <h3 className="font-semibold mb-2">Notes from coach:</h3>
+                    <div className="h-auto overflow-auto border rounded p-3 text-sm space-y-2">
                       {liveTexts.length ? (
                         liveTexts.map((t, i) => <p key={i}>{t}</p>)
                       ) : (
-                        <p className="text-muted-foreground">{isLoading ? "Generando notas..." : "Aún no hay notas."}</p>
+                        <p className="text-muted-foreground">{isLoading ? "Generating notes..." : "No notes from coach yet."}</p>
                       )}
                     </div>
                   </div>
@@ -392,7 +388,7 @@ const Index: React.FC = () => {
           <TabsContent value="graficas">
             <Card>
               <CardHeader>
-                <CardTitle>Dashboard de gráficas</CardTitle>
+                <CardTitle>Generated charts</CardTitle>
               </CardHeader>
               <CardContent>
                 <LiveCharts data={liveSeries} images={chartImages} />
@@ -404,7 +400,8 @@ const Index: React.FC = () => {
 
       <footer className="border-t">
         <div className="container mx-auto px-4 py-6 text-sm text-muted-foreground text-center">
-          <span>AiSA 2025 ABModel</span>
+          <h3>AiSA</h3>
+          <small>ABModel - 2025</small>
         </div>
       </footer>
     </div>

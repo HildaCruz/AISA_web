@@ -1,0 +1,56 @@
+:root {
+  --color-primary: #2A5D8F;
+  --color-secondary: #F2A541;
+  --color-accent: #4A90A4;
+  --color-bg: #f5f7fa;
+  --color-text-primary: #2E2E2E;
+  --color-text-secondary: #6e7e8c;
+  --color-bg-opaque: rgba(245, 247, 250,.96);
+  --color-border: #d1dce5;
+}
+
+body {
+  color: var(--color-text-primary);
+  font-family: Arial, sans-serif;
+  background-image: url('../public/assets/img/9296556.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  color: var(--color-primary);
+}
+
+a {
+  color: var(--color-secondary);
+}
+
+.border {
+  border-color: var(--color-border);
+}
+
+.circle{
+  border-radius: 100%;
+}
+
+.content-wrapper{
+  background-color: var(--color-bg-opaque);
+}
+main{
+  min-height: 100vh;
+}
+header{
+  margin-top: calc(100vh - 10rem);
+}
+#main_logo{
+  margin-top: -10rem;
+}
+#main_logo img{
+  width: 12rem;
+  height: 12rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+}
