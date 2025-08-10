@@ -367,7 +367,7 @@ const Index: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Notes from coach:</h3>
-                    <div className="h-auto overflow-auto border rounded p-3 text-sm space-y-2">
+                    <div className="h-64 overflow-auto border rounded p-3 text-sm space-y-2">
                       {liveTexts.length ? (
                         liveTexts.map((t, i) => <p key={i}>{t}</p>)
                       ) : (
