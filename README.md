@@ -1,73 +1,61 @@
-# Welcome to your Lovable project
+# AI Sports Technique Analysis (React + Django + LLM)
 
-## Project info
+Full‑stack application to analyze canoe sprint videos, compute metrics, and generate coach‑style feedback using an LLM.
 
-**URL**: https://lovable.dev/projects/e28aba3d-efb5-4799-993f-3f150b3ff160
+## Tech Stack
 
-## How can I edit this code?
+- Frontend
+  - React 18 + Vite (React SWC plugin)
+  - TypeScript
+  - Tailwind CSS (+ tailwindcss-animate)
+  - shadcn/ui (built on Radix UI)
+  - React Router v6
+  - TanStack React Query
+  - Recharts (charts)
+  - Lucide React (icons)
+- Backend
+  - Django 5 (ASGI)
+  - Django Channels 4 + Daphne (WebSockets)
+  - django-cors-headers
+  - SQLite (default)
+- Vision & Analytics
+  - OpenCV
+  - MediaPipe 0.10.14
+  - NumPy, Pandas
+  - Pillow, Matplotlib, Seaborn
+- AI / External APIs
+  - Hugging Face Inference API (model: google/flan-t5-base)
+- Tooling
+  - ESLint (typescript-eslint, react-refresh)
+  - clsx, class-variance-authority
+  - Vite alias @ → src/
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Requirements
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e28aba3d-efb5-4799-993f-3f150b3ff160) and start prompting.
+- Node.js 18+ and npm
+- Python 3.10.x (recommended: 3.10.8)
+  - Important: Python 3.13.x is not compatible with MediaPipe; use 3.10.8 to avoid errors.
+- pip and virtualenv (or python -m venv)
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## Project Structure
+backend/ # Django + Channels + analysis pipeline (OpenCV/MediaPipe) 
+frontend/ # React (Vite, TS, Tailwind, shadcn/ui) 
+## Quick Start
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1) Backend (Django + Channels)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+cd backend
+pip install -r requirements.txt
+# Run ASGI server via Daphne
+python app.py
+# Default: http://127.0.0.1:8000
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 2) Frontend (React + Vite)
+npm install
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e28aba3d-efb5-4799-993f-3f150b3ff160) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Default: http://localhost:8080
