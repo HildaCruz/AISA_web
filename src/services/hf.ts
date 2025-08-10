@@ -41,5 +41,5 @@ Evita suposiciones no soportadas por datos. No uses emojis.`;
   const data = await res.json();
   // flan-t5 returns array with generated_text
   const text = Array.isArray(data) ? data[0]?.generated_text : data?.generated_text;
-  return (text || "Ajusta la técnica manteniendo cadencia constante y empuje eficiente.").trim();
+  return (text || "Be precise in using your legs to support the strength of your trunk.").trim();
 }
