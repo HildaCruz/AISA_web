@@ -127,14 +127,14 @@ def _hf_request(api_key: str, prompt: str) -> str:
         else:
             text = data.get("generated_text")
         if not text:
-            text = "Ajusta la técnica manteniendo cadencia constante y empuje eficiente.1"
+            text = "Adjust your technique by maintaining a stable cadence and efficient push."
         return text.strip()
     except Exception:
-        return "Ajusta la técnica manteniendo cadencia constante y empuje eficiente.2"
+        return "It's important to keep your rotation steady throughout your training to get more power in strokes."
 
 async def hf_generate_coach_note(api_key: str, spm: int = 0, strokes: int = 0, head_height: int = 0, hip_height: int = 0, right_hand_height: int = 0, left_hand_height: int = 0, body_rotation: int = 0) -> str:
     if not api_key:
-        return "Ajusta la técnica manteniendo cadencia constante y empuje eficiente.3"
+        return "Don't reduce SPM and focus on enhancing technique to improve performance."
     prompt = (
         f"Eres un coach experto de canotaje de velocidad con experiencia en entrenamiento de alto rendimiento. Da una breve observación en español, en 1-2 frases, clara y concisa. Datos actuales: ritmo de paladas por minuto = ${int(spm)}, número de paladas = ${int(strokes)}, altura de la cabeza = ${int(head_height)}, altura de la cadera = ${int(hip_height)}, altura de la mano derecha = ${int(right_hand_height)}, altura de la mano izquierda = ${int(left_hand_height)}, ángulo de rotación del tronco = ${int(body_rotation)}. Ten en cuenta que en canotaje de velocidad el movimiento del cuerpo es fundamental en la técnica, si las manos no alcanzan la altura de la cabeza en algún punto de la palada o bien pasan por debajo de la altura de cadera se consideran errores que pueden efectar el rendimiento y desplazamiento de la embarcación. Además mantener el ritmo de paladas por minutos, así como la rotación durante la mayor parte del entrenamiento puede mejorar las capacidades físicas y técnicas del atleta. Evita suposiciones no soportadas por datos. No uses emojis."
     )
